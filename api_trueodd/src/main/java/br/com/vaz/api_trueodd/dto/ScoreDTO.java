@@ -1,5 +1,8 @@
 package br.com.vaz.api_trueodd.dto;
 
-public record ScoreDTO(String winner, TimeScoreDTO fulltime) {
-      public record TimeScoreDTO(Integer home, Integer away) {}
-}
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record ScoreDTO(
+        @JsonProperty("winner") String winner,
+        @JsonProperty("fullTime") TimeScoreDTO fullTime
+) {}

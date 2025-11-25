@@ -35,7 +35,7 @@ public class FutebolService {
             return repository.saveAll(partidas);
       }
 
-      private Partida converterParaEntidade(MatchDTO dto){
+      private Partida converterParaEntidade(MatchDTO dto) {
             Partida p = new Partida();
             p.setId(dto.id());
             p.setTimeCasa(dto.homeTeam().name());
@@ -43,9 +43,17 @@ public class FutebolService {
             p.setDataHora(dto.utcDate().toLocalDateTime());
             p.setStatus(dto.status());
 
-            if(dto.score() != null && dto.score().fulltime() != null){
-                  p.setGolsCasa(dto.score().fulltime().home());
-                  p.setGolsFora(dto.score().fulltime().away());
+            // --- DEBUG: Vamos ver o que está chegando no console ---
+            if (dto.score() == null) {
+                  System.out.println("⚠️ Jogo " + dto.id() + ": Score veio NULO");
+            } else if (dto.score().fullTime() == null) {
+                  System.out.println("⚠️ Jogo " + dto.id() + ": fullTime veio NULO. Winner: " + dto.score().winner());
+            }
+            // -------------------------------------------------------
+
+            if (dto.score() != null && dto.score().fullTime() != null) {
+                  p.setGolsCasa(dto.score().fullTime().home());
+                  p.setGolsFora(dto.score().fullTime().away());
             }
             return p;
       }

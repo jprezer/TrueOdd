@@ -16,12 +16,12 @@ public class AnaliseService {
             this.repository = repository;
       }
 
-      public PrevisaoDTO preverJogo(String timeCasa, String timeFora) {
+      public PrevisaoDTO preverJogo(String timeCasa, String timeFora, double oddCasa) {
             List<Partida> ultimosCasa = repository.findTop5ByTimeCasaOrderByDataHoraDesc(timeCasa);
             List<Partida> ultimosFora = repository.findTop5ByTimeForaOrderByDataHoraDesc(timeFora);
 
             if(ultimosCasa.isEmpty() || ultimosFora.isEmpty()){
-                  return new PrevisaoDTO(timeCasa, timeFora, 0,0,0,0,0,0);
+                  return new PrevisaoDTO(timeCasa, timeFora, 0,0,0,0,0,0, 0,0,"Dados insuficientes");
             }
 
             double mediaGolsFeitosCasa = ultimosCasa.stream().mapToInt(Partida::getGolsCasa).average().orElse(1.0);
@@ -52,6 +52,14 @@ public class AnaliseService {
             probEmpate /= total;
             probFora /= total;
 
+            double ev = (probCasa * oddCasa) - 1.0;
+
+            String analise;
+            if(ev > 0.05) analise = "✅ ESSA É GREEN PAPAI " + timeCasa;
+            else if (ev > 0) analise = "⚠️ APOSTA ARRISCADA (Margem pequena) " + timeFora;
+            else analise = "❌ NÃO APOSTE";
+
+
             return new PrevisaoDTO(
                     timeCasa,
                     timeFora,
@@ -60,7 +68,10 @@ public class AnaliseService {
                     Math.round(probFora * 100),
                     arredondar(1 / probCasa),
                     arredondar(1 / probEmpate),
-                    arredondar(1 / probFora)
+                    arredondar(1 / probFora),
+                    oddCasa,
+                    arredondar(ev*100),
+                    analise
             );
       }
 

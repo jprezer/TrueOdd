@@ -8,5 +8,9 @@ public record PrevisaoDTO(
         double probabilidadeFora,
         double oddJustaCasa,   // A odd mínima para valer a pena apostar no time da casa
         double oddJustaEmpate,
-        double oddJustaFora
+        double oddJustaFora,
+
+        double oddCasaApostas,
+        double valorEsperado,
+        String recomendacao
 ) {}

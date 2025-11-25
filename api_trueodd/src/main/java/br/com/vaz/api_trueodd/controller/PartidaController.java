@@ -31,7 +31,7 @@ public class PartidaController {
       }
 
       @GetMapping("/prever")
-      public PrevisaoDTO prever(@RequestParam String casa, @RequestParam String fora, @RequestParam double oddCasa) {
-            return analiseService.preverJogo(casa, fora, oddCasa);
+      public PrevisaoDTO prever(@RequestParam String casa, @RequestParam String fora, @RequestParam double odd) {
+            return analiseService.preverJogo(casa, fora, odd);
       }
 }

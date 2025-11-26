@@ -20,6 +20,11 @@ public class PartidaController {
             this.analiseService = analiseService;
       }
 
+      @GetMapping("/times")
+      public List<String> listarTimes(@RequestParam String liga) {
+            return service.listarTimesPorLiga(liga);
+      }
+
       @PostMapping("/sincronizar")
       public List<Partida> sincronizar(@RequestParam String liga){
             return service.atualizarDadosCampeonato(liga);

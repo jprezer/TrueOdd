@@ -25,6 +25,11 @@ public class FutebolService {
             this.client = client;
             this.repository = repository;
       }
+
+      public List<String> listarTimesPorLiga(String codigoLiga) {
+            return repository.findTimesByLiga(codigoLiga);
+      }
+
       @Transactional
       public List<Partida> atualizarDadosCampeonato(String codigoLiga){
             System.out.println("Buscando dados da liga: " +  codigoLiga);

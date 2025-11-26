@@ -6,7 +6,7 @@ public record PrevisaoDTO(
         double probabilidadeCasa,
         double probabilidadeEmpate,
         double probabilidadeFora,
-        double oddJustaCasa,   // A odd mínima para valer a pena apostar no time da casa
+        double oddJustaCasa,   //odd minima q faca valer a pena apostar no time da casa
         double oddJustaEmpate,
         double oddJustaFora,
 

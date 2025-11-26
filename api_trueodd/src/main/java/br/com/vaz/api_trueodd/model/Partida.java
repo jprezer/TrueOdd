@@ -19,6 +19,8 @@ public class Partida {
       private LocalDateTime dataHora;
       private String status; //finished ou scheduled
 
+      private String competitionCode;
+
       public Partida() {}
 
       public Long getId() {
@@ -76,4 +78,8 @@ public class Partida {
       public void setStatus(String status) {
             this.status = status;
       }
+
+      public String getCompetitionCode() {return competitionCode;}
+
+      public void setCompetitionCode(String competitionCode) {this.competitionCode = competitionCode;}
 }

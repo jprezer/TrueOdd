@@ -31,18 +31,19 @@ public class FutebolService {
             var response = client.getFinishedMatches(apiToken, codigoLiga);
 
             List<Partida> partidas = response.matches().stream()
-                    .map(this::converterParaEntidade)
+                    .map(dto -> converterParaEntidade(dto, codigoLiga))
                     .collect(Collectors.toList());
             return repository.saveAll(partidas);
       }
 
-      private Partida converterParaEntidade(MatchDTO dto) {
+      private Partida converterParaEntidade(MatchDTO dto, String codigoLiga) {
             Partida p = new Partida();
             p.setId(dto.id());
             p.setTimeCasa(dto.homeTeam().name());
             p.setTimeFora(dto.awayTeam().name());
             p.setDataHora(dto.utcDate().toLocalDateTime());
             p.setStatus(dto.status());
+            p.setCompetitionCode(codigoLiga);
 
             if (dto.score() != null && dto.score().fullTime() != null) {
                   p.setGolsCasa(dto.score().fullTime().home());

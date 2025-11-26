@@ -12,5 +12,7 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
       List<Partida> findTop5ByTimeCasaOrderByDataHoraDesc(String timeCasa);
 
       List<Partida> findTop5ByTimeForaOrderByDataHoraDesc(String timeFora);
+
+      List<Partida> findByCompetitionCode(String competitionCode);
 }
 

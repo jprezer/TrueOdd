@@ -21,8 +21,8 @@ public class PartidaController {
       }
 
       @PostMapping("/sincronizar")
-      public List<Partida> sincronizar(){
-            return service.atualizarDadosBrasileirao();
+      public List<Partida> sincronizar(@RequestParam String liga){
+            return service.atualizarDadosCampeonato(liga);
       }
 
       @GetMapping

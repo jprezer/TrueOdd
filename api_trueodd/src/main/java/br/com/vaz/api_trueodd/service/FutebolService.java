@@ -26,8 +26,9 @@ public class FutebolService {
             this.repository = repository;
       }
       @Transactional
-      public List<Partida> atualizarDadosBrasileirao(){
-            var response = client.getFinishedMatches(apiToken, "BSA");
+      public List<Partida> atualizarDadosCampeonato(String codigoLiga){
+            System.out.println("Buscando dados da liga: " +  codigoLiga);
+            var response = client.getFinishedMatches(apiToken, codigoLiga);
 
             List<Partida> partidas = response.matches().stream()
                     .map(this::converterParaEntidade)
@@ -42,14 +43,6 @@ public class FutebolService {
             p.setTimeFora(dto.awayTeam().name());
             p.setDataHora(dto.utcDate().toLocalDateTime());
             p.setStatus(dto.status());
-
-            // --- DEBUG: Vamos ver o que está chegando no console ---
-            if (dto.score() == null) {
-                  System.out.println("⚠️ Jogo " + dto.id() + ": Score veio NULO");
-            } else if (dto.score().fullTime() == null) {
-                  System.out.println("⚠️ Jogo " + dto.id() + ": fullTime veio NULO. Winner: " + dto.score().winner());
-            }
-            // -------------------------------------------------------
 
             if (dto.score() != null && dto.score().fullTime() != null) {
                   p.setGolsCasa(dto.score().fullTime().home());
